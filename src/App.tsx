@@ -1,34 +1,33 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
+import data from './data/data';
 
 function App() {
-  const [count, setCount] = useState(0)
+  const nlKeys = Object.keys(data.numbers);
+  const nlValues = Object.values(data.numbers);
+  const [wordIndex, setWordIndex] = useState(0);
+  const [inputValue, setInputValue] = useState("");
+
+  const nextWord = (event: React.FormEvent<HTMLFormElement>) => {
+    event?.preventDefault();
+    if(inputValue.toLowerCase() === nlValues[wordIndex]) {
+      setWordIndex((prev) => prev + 1)
+      setInputValue("");
+    } else {
+      setInputValue("");
+    }
+  }
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+    <div>
+      <h1>Vi repeterar Svenska!</h1>
+      <p>Translate the following english word into it's swedish counterpart.</p>
+      <h2>{nlKeys[wordIndex]}</h2>
+      <form onSubmit={nextWord}>
+        <input type="text" value={inputValue} onChange={(e) => setInputValue(e.target.value)}></input>
+        <button type="submit">Nästa</button>
+      </form>
+    </div>
   )
 }
 
