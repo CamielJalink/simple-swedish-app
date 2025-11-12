@@ -20,7 +20,7 @@ function App() {
 
   return (
     <div>
-      <h1>Vi repeterar Svenska!</h1>
+      <h1 className="text-3xl">Vi repeterar Svenska!</h1>
       <p>Translate the following english word into it's swedish counterpart.</p>
       <h2>{nlKeys[wordIndex]}</h2>
       <form onSubmit={nextWord}>
